@@ -12,7 +12,7 @@ export const Modal = () => {
     if (!close) {
         return ReactDOM.createPortal(
             <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center overflow-y-auto p-4 bg-[#00000097]">
-                <div className="flex flex-col gap-4 bg-white p-4 sm:p-8 rounded w-full sm:w-[650px] md:w-[800px]">
+                <div className="animate__animated animate__fadeIn flex flex-col gap-4 bg-white p-4 sm:p-8 rounded w-full sm:w-[650px] md:w-[800px]">
                     <button className="self-end transition-transform hover:scale-105" onClick={handleClose}>
                         <BsXLg />
                     </button>
