@@ -6,7 +6,7 @@ import { Modal } from "./components/Modal"
 
 function App() {
   return (
-    <div className='grid grid-rows-[100vh] relative'>
+    <div className='grid grid-rows-[minmax(100vh, auto)] relative'>
         <Modal />
         <Header />
         <Hero />
