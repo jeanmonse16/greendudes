@@ -1,10 +1,20 @@
-import { useState } from 'react'
+import { Header } from "./components/Header"
+import { Hero } from "./components/Hero"
+import { Showcase } from "./components/Showcase"
+import { Footer } from "./components/Footer"
+import { Modal } from "./components/Modal"
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="App"/>
+    <div className='grid grid-rows-[100vh] relative'>
+        <Modal />
+        <Header />
+        <Hero />
+        <div className="bg-[url('/src/assets/images/dirt.jpg')] bg-cover">
+          <Showcase />
+          <Footer />
+        </div>
+    </div>
   )
 }
 

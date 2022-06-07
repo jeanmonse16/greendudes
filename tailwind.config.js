@@ -1,34 +1,27 @@
+const plugin = require('tailwindcss/plugin')
+
 module.exports = {
     content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
-    // to customize if you want to theme: {
-    //   screens: {
-    //     sm: '480px',
-    //     md: '768px',
-    //     lg: '976px',
-    //     xl: '1440px',
-    //   },
-    //   colors: {
-    //     'blue': '#1fb6ff',
-    //     'pink': '#ff49db',
-    //     'orange': '#ff7849',
-    //     'green': '#13ce66',
-    //     'gray-dark': '#273444',
-    //     'gray': '#8492a6',
-    //     'gray-light': '#d3dce6',
-    //   },
-    //   fontFamily: {
-    //     sans: ['Graphik', 'sans-serif'],
-    //     serif: ['Merriweather', 'serif'],
-    //   },
-    //   extend: {
-    //     spacing: {
-    //       '128': '32rem',
-    //       '144': '36rem',
-    //     },
-    //     borderRadius: {
-    //       '4xl': '2rem',
-    //     }
-    //   }
-    // },
-    plugins: [],
+    plugins: [
+        plugin(function ({ addUtilities }) {
+            addUtilities({
+              '.text-shadow': {
+                "text-shadow": "-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000"
+              }, 
+              '.scrollbar-hide': {
+                /* IE and Edge */
+                '-ms-overflow-style': 'none',
+      
+                /* Firefox */
+                'scrollbar-width': 'none',
+      
+                /* Safari and Chrome */
+                '&::-webkit-scrollbar': {
+                  display: 'none'
+                }
+              }
+            }
+            )
+          })
+    ],
 }
