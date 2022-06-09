@@ -23,12 +23,12 @@ const setState = (title, description) => ({ title, description })
 const mintState = {
   PRESALE_HAS_NOT_STARTED: setState('NFT Pre-Sale Coming Soon', 'We are working hard to launch the NFT Collection. Stay tuned for updates!'),
   PRESALE_STARTED_AND_IS_WL: setState('Pre-Sale Minting Open!!', "You're on the whitelist for the pre-sale! 🎉"),
-  PRESALE_STARTED_AND_NOT_WL: setState("Pre-Sale Minting Open!!", "You are not whitelisted for the pre-sale.. 😢"),
+  PRESALE_STARTED_AND_NOT_WL: setState("Pre-Sale Minting Open!!", "You are not whitelisted for the pre-sale... 😢"),
   PRESALE_STARTED_MAX: setState('Pre-Sale NFTs are sold out', "Wait for the public minting!"),
   PRESALE_MAX_MINT: setState("You've already claimed your whitelist mint. Thank you! 🎉", "Wait for the public minting if you want more!"),
   PUBLIC_SALE_STARTED: setState("Public Minting Open!!", "No whitelist needed. Public minting is now open! 🎉"),
   COOL_OUT: setState('Public Minting coming soon', "what green dude will you get?"),
-  PUBLIC_SALE_MAX: setState('All the NFTs are sold out!', "Join our Community for updates"),
+  PUBLIC_SALE_MAX: setState('NFTs are sold out!', "Join our Community for updates"),
   PUBLIC_WALLET_MAX: setState("You've already claimed your max public mint. Thank you! 🎉", "Join our Community for updates")
 }
 
@@ -193,11 +193,14 @@ function App() {
   }
 
   async function loadContractInfo() {
+    setShowMintModal(true)
     const onlyPresale = await contract.methods.onlyPresale().call();
     const presaleStarted = await contract.methods.presaleStarted().call()
     const totalMinted = await contract.methods.getTotalSupply().call();
     const isCoolDownActive = await contract.methods.paused().call();
-    console.log(onlyPresale, presaleStarted, totalMinted, isCoolDownActive)
+    const max_mint = onlyPresale ? await contract.methods.MAX_PRESALE_MINT().call() : await contract.methods.MAX_PUBLIC_MINT().call()
+    const addressBalance = onlyPresale ? await contract.methods.addressPresaleMintedBalance(accounts[0]).call() : await contract.methods.addressMintedBalance(accounts[0]).call()
+    const addressMintMax = Number(max_mint) === Number(addressBalance) 
     setShowMintModal(true)
   
     if (isCoolDownActive) {
@@ -211,27 +214,52 @@ function App() {
         } else {
           const isWhitelisted = await contract.methods.isWhitelisted(accounts[0]).call();
           if (isWhitelisted) {
-            setCanMint(true)
-            setMintInfo(PRESALE_STARTED_AND_IS_WL)
+            const max_presale_mint = await contract.methods.presaleAmount().call()
+            const isWLSoldOut = Number(totalMinted) >= Number(max_presale_mint) 
+            if (isWLSoldOut) {
+              setCanMint(false)
+              setMintInfo(PRESALE_STARTED_MAX)
+            } else if (addressMintMax) {
+              setCanMint(false)
+              setMintInfo(PRESALE_MAX_MINT)
+            }
+            else {
+              setCanMint(true)
+              setMintInfo(PRESALE_STARTED_AND_IS_WL)
+            }
           } else {
-            setCanMint(false)
-            setMintInfo(PRESALE_STARTED_AND_NOT_WL)
+              setCanMint(false)
+              setMintInfo(PRESALE_STARTED_AND_NOT_WL)
           }
         }
     } else {
-      setCanMint(true)
-      setMintInfo(PUBLIC_SALE_STARTED)
+      const max_public_supply = await contract.methods.MAX_SUPPLY().call()
+      const isSoldOut = Number(totalMinted) >= Number(max_public_supply)
+      if (addressMintMax) {
+          setCanMint(false)
+          setMintInfo(PUBLIC_WALLET_MAX)
+      } else if (isSoldOut) {
+          setCanMint(false)
+          setMintInfo(PUBLIC_SALE_MAX)
+      } else {
+        setCanMint(true)
+        setMintInfo(PUBLIC_SALE_STARTED)
+      }
     }
+  }
+
+  const mint = () => {
+    updateConnectStatus()
   }
 
   return (
     <div className='grid grid-rows-[minmax(100vh, auto)] relative'> 
         { layoutLoading && <Loader /> }
-        { showMintModal && <Modal>
+        { showMintModal && <Modal onClose={() => setShowMintModal(false)}>
           { canMint ? <Mint {...mintState[mintInfo]} address={accounts[0]} /> : <MintException {...mintState[mintInfo]} /> }
         </Modal> }
         
-        <Header {...metamaskButton} />
+        <Header {...metamaskButton} onMint={mint} />
         <Hero />
         <div className="bg-[url('/src/assets/images/dirt.jpg')] bg-cover">
           <Showcase />

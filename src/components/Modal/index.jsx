@@ -2,11 +2,12 @@ import { useState } from 'react';
 import ReactDOM from "react-dom"
 import { BsXLg } from 'react-icons/bs'
 
-export const Modal = ({ children }) => {
+export const Modal = ({ children, onClose }) => {
     const [ close, setClose ] = useState(false);
 
     const handleClose = () => {
         setClose(!close)
+        onClose()
     }
 
     if (!close) {
