@@ -1,9 +1,5 @@
 import { useEffect, useRef } from 'react';
 import { CarouselItem } from '../CarouselItem';
-import Goblin from '../../assets/images/goblin.jpg';
-import Chest from '../../assets/images/chest.png';
-import Sign from '../../assets/images/sign.png';
-import Fire from '../../assets/images/fire.gif';
 
 export const Carousel = () => {
     const ref = useRef(null)
@@ -34,14 +30,14 @@ export const Carousel = () => {
             <div className="w-[264px] md:w-[528px] lg:w-[792px] xl:w-[1056px] mx-auto rounded shadow-xl">
                 <div ref={ref} className='overflow-x-auto rounded scroll-smooth scrollbar-hide'>
                         <div className='flex'>
-                            <CarouselItem image={Goblin} />
-                            <CarouselItem image={Chest} />
-                            <CarouselItem image={Fire} />
-                            <CarouselItem image={Sign} />
-                            <CarouselItem image={Goblin} />
-                            <CarouselItem image={Chest} />
-                            <CarouselItem image={Fire} />
-                            <CarouselItem image={Sign} />
+                            <CarouselItem image={'goblin.jpg'} />
+                            <CarouselItem image={'chest.png'} />
+                            <CarouselItem image={'fire.gif'} />
+                            <CarouselItem image={'sign.png'} />
+                            <CarouselItem image={'goblin.jpg'} />
+                            <CarouselItem image={'chest.png'} />
+                            <CarouselItem image={'fire.gif'} />
+                            <CarouselItem image={'sign.png'} />
                         </div>
                 </div>
             </div>

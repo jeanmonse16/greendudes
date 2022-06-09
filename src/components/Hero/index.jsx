@@ -1,5 +1,3 @@
-import Banner from '../../assets/images/greentown.png'
-
 export const Hero = () => {
     return (
         <div className='flex flex-col gap-8 items-center justify-between mt-20 md:mt-16'>
@@ -8,7 +6,7 @@ export const Hero = () => {
                 <p className='animate__animated animate__fadeInUp animate__slow	2s text-lg text-center'>wE arE 10.o0o GreeN DudeS LivinG iN GreeN TowN  -nO RoaDmaP -nO OgS -nO KingS JusT GooD VibeS!!! wE WilL HavE GiveAwayS 🎁  witH PriZeS anD WL 📖  SpotS NFT FREE MINT.</p>
             </div>
             <div className='w-full'>
-                <img  className='w-full' src={Banner} alt="greendudes banner" />
+                <img  className='w-full' src={`${__ASSETS_URL__}greentown.png`} alt="greendudes banner" />
             </div>
         </div>
     )
