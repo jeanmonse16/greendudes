@@ -3,8 +3,8 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "vite -m development",
+    "build": "vite build -m production",
     "preview": "vite preview",
     "buildStyles": "npx tailwindcss -i ./src/tailwind.css -o ./dist/tailwind.css --minify"
   },

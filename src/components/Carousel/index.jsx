@@ -19,10 +19,12 @@ export const Carousel = () => {
         }
 
         setInterval(() => {
-            if (ref.current.scrollLeft >= handleScrollMax()) {
-                ref.current.scrollLeft = 0;
-            } else {
-                ref.current.scrollLeft += 264;
+            if (ref.current) {
+                if (ref.current.scrollLeft >= handleScrollMax()) {
+                    ref.current.scrollLeft = 0;
+                } else {
+                    ref.current.scrollLeft += 264;
+                }
             };
         }, 2000)
     }, [])

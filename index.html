@@ -13,15 +13,16 @@
     <div id="root" class="min-h-screen overflow-x-hidden"></div>
     <div id="modal"></div>
     <script>window.global = window;</script>
-<script type="module">
-    import process from "process";
-    import { Buffer } from "buffer";
-    import EventEmitter from "events";
-    
-    window.Buffer = Buffer;
-    window.process = process;
-    window.EventEmitter = EventEmitter;
-</script>
+    <script type="module">
+      import process from "process";
+      import { Buffer } from "buffer";
+      import EventEmitter from "events";
+      
+      window.Buffer = Buffer;
+      window.process = process;
+      window.EventEmitter = EventEmitter;
+    </script>
+    <div id="loader"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
