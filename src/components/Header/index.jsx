@@ -12,6 +12,9 @@ export const Header = ({ text, handleClick}) => {
                 <button onClick={handleClick} className="text-md text-white rounded-full font-medium px-4 py-1 bg-black border border-white shadow-md transition-transform hover:scale-105">
                     {text}
                 </button>
+                <button className="text-md text-white rounded-full font-medium px-4 py-1 bg-black border border-white shadow-md transition-transform hover:scale-105">
+                    Mint
+                </button>
             </div>
         </header>
     )
