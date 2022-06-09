@@ -10,7 +10,7 @@ import { Presale } from './components/Presale';
 function App() {
   return (
     <div className='grid grid-rows-[minmax(100vh, auto)] relative'>
-        <Loader />
+        {/* <Loader /> */}
         <Modal>
           {/* <PublicMint /> */}
           <Presale />
